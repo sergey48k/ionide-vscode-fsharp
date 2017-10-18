@@ -45,6 +45,7 @@ module Errors =
     let private onDocumentParsedEmitter = EventEmitter<DocumentParsedEvent>()
     let onDocumentParsed = onDocumentParsedEmitter.event;
 
+
     let private parse (document : TextDocument) =
         let fileName = document.fileName
         let text = document.getText()
@@ -54,6 +55,7 @@ module Errors =
             if isNotNull result then
                 onDocumentParsedEmitter.fire { fileName = fileName; text = text; version = version; document = document; result = result }
                 CodeLens.refresh.fire (unbox version)
+                ReferenceCodeLens.refresh.fire (unbox version)
                 Linter.refresh.fire fileName
                 UnusedOpens.refresh.fire fileName
                 UnusedDeclarations.refresh.fire fileName

@@ -35,6 +35,7 @@ let activate (context: ExtensionContext) =
                 pm.message <- "Loading all projects"
                 p.report pm
                 CodeLens.activate df' context
+                ReferenceCodeLens.activate df' context
                 Linter.activate df' context
                 UnusedOpens.activate df' context
                 UnusedDeclarations.activate df' context
