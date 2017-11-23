@@ -11,8 +11,14 @@ module Webhooks =
 
     let mutable errorCallback = fun (a : ParseResult) -> printfn "ERROR CALLBACK: %A" a
     let mutable workspaceCallback = fun (a : Choice<ProjectResult,ProjectLoadingResult,(string * ErrorData)>) -> printfn "WORKSPACE CALLBACK: %A" a
-
     let app = express.Invoke()
+    let middleware (req:express.Request) (res:express.Response) (next: unit -> unit) =
+      req.body <- ""
+      req.setEncoding("utf8")
+      req.on("data", fun (chunk : string) -> req.body <- unbox req.body + chunk) |> ignore
+      req.on("end", fun _ -> next ()) |> ignore
+
+    app?``use`` $ (middleware |> unbox ) |> ignore
 
     app.all
       ( U2.Case1 "/notifyWorkspace",
@@ -33,7 +39,7 @@ module Webhooks =
     app.all
       ( U2.Case1 "/notifyErrors",
         fun (req:express.Request) (res:express.Response) _ ->
-            let n = req.body
+            let n = req.body |> unbox |> ofJson
             if unbox n?Kind = "errors" then
                 n |> unbox |> errorCallback
             (res.send "OK") |> box )

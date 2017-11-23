@@ -459,8 +459,8 @@ module Project =
         let w = vscode.workspace.createFileSystemWatcher("**/*.fsproj")
         w.onDidCreate.Invoke(fun n -> load n.fsPath |> unbox) |> ignore
         w.onDidChange.Invoke(fun n -> load n.fsPath |> unbox) |> ignore
-
-        let workspaceNotificationAvaiable = true //LanguageService.registerNotifyWorkspace handleProjectParsedNotification
+        Webhooks.workspaceCallback <- handleProjectParsedNotification
+        let workspaceNotificationAvaiable = true
 
         let initWorkspace x =
             clearLoadedProjects ()
