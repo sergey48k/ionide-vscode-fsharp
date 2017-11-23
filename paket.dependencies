@@ -3,6 +3,7 @@ storage:none
 
 clitool dotnet-fable 1.2.4
 nuget Fable.Core 1.2.4
+nuget Fable.Import.Express
 nuget Fable.Import.Node 0.1.5
 nuget Fable.Import.Browser 0.1.2
 

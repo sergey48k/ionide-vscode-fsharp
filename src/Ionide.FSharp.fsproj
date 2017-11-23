@@ -28,6 +28,7 @@
     <Compile Include="Core/LanguageService.fs" />
     <Compile Include="Core/Environment.fs" />
     <Compile Include="Core/Project.fs" />
+    <Compile Include="Core/Webhooks.fs" />
     <Compile Include="Components/Tooltip.fs" />
     <Compile Include="Components/Autocomplete.fs" />
     <Compile Include="Components/ParameterHints.fs" />
