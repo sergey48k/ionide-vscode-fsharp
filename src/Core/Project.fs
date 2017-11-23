@@ -460,7 +460,7 @@ module Project =
         w.onDidCreate.Invoke(fun n -> load n.fsPath |> unbox) |> ignore
         w.onDidChange.Invoke(fun n -> load n.fsPath |> unbox) |> ignore
 
-        let workspaceNotificationAvaiable = LanguageService.registerNotifyWorkspace handleProjectParsedNotification
+        let workspaceNotificationAvaiable = true //LanguageService.registerNotifyWorkspace handleProjectParsedNotification
 
         let initWorkspace x =
             clearLoadedProjects ()

@@ -141,7 +141,7 @@ module Errors =
         workspace.onDidChangeTextDocument $ (handler,(), context.subscriptions) |> ignore
         window.onDidChangeActiveTextEditor $ (handlerOpen, (), context.subscriptions) |> ignore
         workspace.onDidSaveTextDocument $ (handlerSave, (), context.subscriptions) |> ignore
-        LanguageService.registerNotify handleNotification
+        // LanguageService.registerNotify handleNotification
         Promise.lift parseVisibleTextEditors
 
 
