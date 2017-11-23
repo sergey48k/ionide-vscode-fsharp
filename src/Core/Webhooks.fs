@@ -41,3 +41,4 @@ module Webhooks =
 
     let activate () =
         app.listen(port, (fun _ -> printfn "Webhooks listening at port: %d" port) |> unbox)
+        |> ignore

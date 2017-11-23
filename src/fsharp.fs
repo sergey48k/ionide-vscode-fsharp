@@ -21,6 +21,7 @@ let activate (context: ExtensionContext) =
     let init = DateTime.Now
 
     LanguageService.start ()
+    |> Promise.onSuccess (fun _ -> Webhooks.activate ())
     |> Promise.onSuccess (fun _ ->
         let progressOpts = createEmpty<ProgressOptions>
         progressOpts.location <- ProgressLocation.Window
