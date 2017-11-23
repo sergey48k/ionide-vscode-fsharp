@@ -215,7 +215,7 @@ module LanguageService =
 
     let private handleUntitled (fn : string) = if fn.EndsWith ".fs" || fn.EndsWith ".fsi" || fn.EndsWith ".fsx" then fn else (fn + ".fsx")
 
-    let private deserializeProjectResult (res: ProjectResult) =
+    let deserializeProjectResult (res: ProjectResult) =
         let parseInfo (f: obj) =
             match f?SdkType |> unbox with
             | "dotnet/sdk" ->
