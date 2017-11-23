@@ -85,8 +85,6 @@ module LanguageService =
     let port = if devMode then "8088" else genPort ()
     let private url fsacAction requestId = (sprintf "http://127.0.0.1:%s/%s?requestId=%i" port fsacAction requestId)
     let mutable private service : ChildProcess.ChildProcess option =  None
-    let mutable private socketNotify : WebSocket option = None
-    let mutable private socketNotifyWorkspace : WebSocket option = None
     let private platformPathSeparator = if Process.isMono () then "/" else "\\"
     let private makeRequestId =
         let mutable requestId = 0
@@ -378,54 +376,6 @@ module LanguageService =
     let projectsInBackground s =
         {ProjectRequest.FileName = s}
         |> request "projectsInBackground" 0 (makeRequestId())
-
-    [<PassGenerics>]
-    let private registerNotifyAll (cb : 'a -> unit) (ws: WebSocket) =
-        ws.on_message((fun (res : string) ->
-            log.Debug(sprintf "WebSocket message: '%s'" res)
-            let n = res |> JS.JSON.parse
-            cb (n |> unbox)
-            ) |> unbox) |> ignore
-        ()
-
-    [<PassGenerics>]
-    let registerNotify (cb : ParseResult -> unit) =
-        let onParseResult n =
-            if unbox n?Kind = "errors" then
-                n |> unbox |> cb
-        socketNotify
-        |> Option.iter (registerNotifyAll onParseResult)
-
-    [<PassGenerics>]
-    let registerNotifyWorkspace (cb : _ -> unit) =
-        let onMessage res =
-            match res?Kind |> unbox with
-            | "project" ->
-                res |> unbox<ProjectResult> |> deserializeProjectResult |> Choice1Of3 |> cb
-            | "projectLoading" ->
-                res |> unbox<ProjectLoadingResult> |> Choice2Of3 |> cb
-            | "error" ->
-                res?Data |> parseError |> Choice3Of3 |> cb
-            | _ ->
-                ()
-
-        match socketNotifyWorkspace with
-        | None -> false
-        | Some ws ->
-            ws |> registerNotifyAll onMessage
-            true
-
-    let private startSocket notificationEvent =
-        let address = sprintf "ws://localhost:%s/%s" port notificationEvent
-        try
-            let sck = WebSocket address
-            log.Info(sprintf "listening notification on /%s started" notificationEvent)
-            Some sck
-        with
-        | e ->
-            log.Error(sprintf "notification /%s initialization error: %s" notificationEvent e.Message)
-            None
-
     let start' fsacExe (fsacArgs : string list) =
         Promise.create (fun resolve reject ->
             let child =
@@ -506,12 +456,8 @@ module LanguageService =
              start' "dotnet" [ path ]
 
     let start () =
-         let startByDevMode = if devMode then Promise.empty else startFSAC ()
-         startByDevMode
-         |> Promise.onSuccess (fun _ ->
-            socketNotify <- startSocket "notify" )
-         |> Promise.onSuccess (fun _ ->
-            socketNotifyWorkspace <- startSocket "notifyWorkspace" )
+        let startByDevMode = if devMode then Promise.empty else startFSAC ()
+        startByDevMode
 
     let stop () =
         service |> Option.iter (fun n -> n.kill "SIGKILL")
