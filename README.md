@@ -113,4 +113,13 @@ Thank you for contributing!
 The project is hosted on [GitHub](https://github.com/ionide/ionide-vscode-fsharp) where you can [report issues](https://github.com/ionide/ionide-vscode-fsharp/issues), fork
 the project and submit pull requests.
 
+[![0](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/images/0)](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/links/0)
+[![1](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/images/1)](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/links/1)
+[![2](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/images/2)](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/links/2)
+[![3](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/images/3)](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/links/3)
+[![4](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/images/4)](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/links/4)
+[![5](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/images/5)](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/links/5)
+[![6](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/images/6)](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/links/6)
+[![7](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/images/7)](https://sourcerer.io/fame/Krzysztof-Cieslak/ionide/ionide-vscode-fsharp/links/7)
+
 The library is available under [MIT license](https://github.com/ionide/ionide-vscode-fsharp/blob/master/LICENSE.md), which allows modification and redistribution for both commercial and non-commercial purposes.
